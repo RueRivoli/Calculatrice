@@ -1,4 +1,4 @@
-# application_1
+# Calculatrice
 
 > A Vue.js project
 
