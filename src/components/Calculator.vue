@@ -51,9 +51,9 @@ export default {
     },
     openParenth: function () {
       if (this.openParenthesisAllowed) {
-         this.lastchar = '('
-         this.countDotinCurrentNb = 0
-         this.openParenthesis++
+        this.lastchar = '('
+        this.countDotinCurrentNb = 0
+        this.openParenthesis++
         if (this.current === '0') this.current = '('
         else this.current = this.current + '('
       }
@@ -72,8 +72,8 @@ export default {
         else {
           this.current = this.current + value
         }
-         this.countDotinCurrentNb = 0
-         this.lastchar = value
+        this.countDotinCurrentNb = 0
+        this.lastchar = value
       }
     },
     appendNumber: function (value) {
@@ -86,8 +86,8 @@ export default {
       }
     },
     displayResult: function () {
-        this.current = this.comput(this.current)
-      },
+      this.current = this.comput(this.current)
+    },
     comput: function (word) {
       let characters = [')', '+', '-', '/', '*']
       let i = 0
@@ -98,26 +98,16 @@ export default {
           if (i === 0) {
             let lastOpenParenthesis = word.substr(0, ind).lastIndexOf('(')
             if (lastOpenParenthesis !== -1) {
-              console.log('(')
-              console.log('index : ' + ind)
-              console.log('last Open Parenthesis : ' + lastOpenParenthesis)
-              console.log('LES 3 EXPRESSIONS ==>')
-              console.log('partie 1 --- ' + word.substr(0, lastOpenParenthesis))
-              console.log('partie 2 --- ' + word.substr(lastOpenParenthesis + 1, ind - lastOpenParenthesis - 1))
-              console.log('partie 3 --- ' + word.substr(ind + 1, word.length - ind))
-              return this.comput(word.substr(0,lastOpenParenthesis) + this.comput(word.substr(lastOpenParenthesis + 1, ind - lastOpenParenthesis - 1)) + word.substr(ind + 1, word.length - ind))
+              return this.comput(word.substr(0, lastOpenParenthesis) + this.comput(word.substr(lastOpenParenthesis + 1, ind - lastOpenParenthesis - 1)) + word.substr(ind + 1, word.length - ind))
             } else return 0
           }
           if (i === 1) {
             return this.comput(word.substr(0, ind)) + this.comput(word.substr(ind + 1, word.length))
-          }
-          else if (i === 2) {
+          } else if (i === 2) {
             return this.comput(word.substr(0, ind)) - this.comput(word.substr(ind + 1, word.length))
-          }
-          else if (i === 3) {
+          } else if (i === 3) {
             return this.comput(word.substr(0, ind)) / this.comput(word.substr(ind + 1, word.length))
-          }
-          else if (i === 4) {
+          } else if (i === 4) {
             return this.comput(word.substr(0, ind)) * this.comput(word.substr(ind + 1, word.length))
           }
         }
@@ -128,9 +118,8 @@ export default {
   },
   computed: {
     operandAllowed: function () {
-      if ( this.current !== '0' && !this.operations.includes(this.lastchar) && this.lastchar !== '(') return true
+      if (this.current !== '0' && !this.operations.includes(this.lastchar) && this.lastchar !== '(') return true
       return false
-
     },
     numberAllowed: function () {
       return this.lastchar !== ')'
