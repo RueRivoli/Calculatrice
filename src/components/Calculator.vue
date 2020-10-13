@@ -33,11 +33,6 @@ export default {
       openParenthesis: 0,
       countDotinCurrentNb: 0,
       current: '0'
-      // current: '0',
-      // isParenthesisAllowed: true,
-      // isOperandAllowed: false,
-      // isDotAllowed: true,
-      // isNumberAllowed: true,
     }
   },
   methods: {
@@ -55,18 +50,15 @@ export default {
       this.countDotinCurrentNb = 0
     },
     openParenth: function () {
-      console.log(this.openParenthesisAllowed)
       if (this.openParenthesisAllowed) {
          this.lastchar = '('
          this.countDotinCurrentNb = 0
          this.openParenthesis++
         if (this.current === '0') this.current = '('
         else this.current = this.current + '('
-       
       }
     },
     closeParenth: function () {
-        console.log(this.closeParenthesisAllowed)
       if (this.closeParenthesisAllowed) {
         this.openParenthesis--
         this.lastchar = ')'
@@ -75,7 +67,6 @@ export default {
       }
     },
     operand: function (value) {
-      console.log(this.operandAllowed)
       if (this.operandAllowed || (this.current === '0' && value === '-')) {
         if (this.current === '0') this.current = '-'
         else {
@@ -86,50 +77,47 @@ export default {
       }
     },
     appendNumber: function (value) {
-      console.log(this.numberAllowed)
       if (this.numberAllowed) {
         this.lastchar = value
         if (this.current !== '0') this.current = `${this.current}${value}`
         else {
           this.current = `${value}`
         }
-        this.lastchar = value
       }
     },
     displayResult: function () {
         this.current = this.comput(this.current)
       },
     comput: function (word) {
-      console.log(word)
       let characters = [')', '+', '-', '/', '*']
       let i = 0
-      if (!word) return 0
+      if (!word || word === '') return 0
       while (characters[i]) {
-        console.log('I - ' + i)
-        // console.log(characters[i])
         let ind = word.indexOf(characters[i])
         if (ind !== -1) {
           if (i === 0) {
-            let lastOpenParenthesis = word.lastIndexOf('(', word.substr(0, ind))
+            let lastOpenParenthesis = word.substr(0, ind).lastIndexOf('(')
             if (lastOpenParenthesis !== -1) {
               console.log('(')
-              return this.comput(word.substr(0, lastOpenParenthesis) + this.comput(word.substr(lastOpenParenthesis + 1, ind - lastOpenParenthesis - 1)) + word.substr(ind + 1, word.length))
+              console.log('index : ' + ind)
+              console.log('last Open Parenthesis : ' + lastOpenParenthesis)
+              console.log('LES 3 EXPRESSIONS ==>')
+              console.log('partie 1 --- ' + word.substr(0, lastOpenParenthesis))
+              console.log('partie 2 --- ' + word.substr(lastOpenParenthesis + 1, ind - lastOpenParenthesis - 1))
+              console.log('partie 3 --- ' + word.substr(ind + 1, word.length - ind))
+              return this.comput(word.substr(0,lastOpenParenthesis) + this.comput(word.substr(lastOpenParenthesis + 1, ind - lastOpenParenthesis - 1)) + word.substr(ind + 1, word.length - ind))
             } else return 0
           }
           if (i === 1) {
-            console.log('+')
             return this.comput(word.substr(0, ind)) + this.comput(word.substr(ind + 1, word.length))
           }
           else if (i === 2) {
-             console.log('-')
             return this.comput(word.substr(0, ind)) - this.comput(word.substr(ind + 1, word.length))
           }
           else if (i === 3) {
-                console.log('/')
             return this.comput(word.substr(0, ind)) / this.comput(word.substr(ind + 1, word.length))
           }
           else if (i === 4) {
-                console.log('x')
             return this.comput(word.substr(0, ind)) * this.comput(word.substr(ind + 1, word.length))
           }
         }
@@ -148,7 +136,7 @@ export default {
       return this.lastchar !== ')'
     },
     openParenthesisAllowed: function () {
-      if (this.operations.includes(this.lastchar) || this.current === '0') return true
+      if (this.operations.includes(this.lastchar) || this.current === '0' || this.lastchar === '(') return true
       return false
     },
     closeParenthesisAllowed: function () {
