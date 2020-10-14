@@ -2,15 +2,15 @@
   <el-row>
       <el-col :span="8" :offset="8">
          <el-form ref="form" :model="form" label-width="120px">
-            <el-form-item label="Nombre">
-                <el-input placeholder="Nombre" size="mini" v-model="number"></el-input>
+            <el-form-item label="Number">
+                <el-input placeholder="Number" size="mini" v-model="number"></el-input>
             </el-form-item>
-             <el-form-item label="Résultat">
-                <el-input placeholder="Nombre" size="mini" v-model="highestNb"></el-input>
+             <el-form-item label="Result">
+                <el-input placeholder="Result" size="mini" v-model="highestNb"></el-input>
             </el-form-item>
             <el-row v-if="performance" style="height:20px;margin-bottom:20px;">{{ performance }} milliseconds.</el-row>
-            <el-button type="primary" size="mini" @click="find">Trouver</el-button>
-            <el-button type="danger" size="mini" @click="clear">Effacer</el-button>
+            <el-button type="primary" size="mini" @click="find">Find</el-button>
+            <el-button type="danger" size="mini" @click="clear">Clean</el-button>
         </el-form>
   </el-col>
   </el-row>

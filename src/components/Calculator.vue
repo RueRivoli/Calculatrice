@@ -24,7 +24,7 @@
       <div @click="dot()" class="btn">.</div>
       <div @click="displayResult()" class="operator">=</div>
     </div>
-    <div class="chart-container" style="position: relative; height:30vh; width:40vw;margin:auto;">
+    <div class="chart-container" style="position: relative; height:40vh; width:50vw;margin:auto;">
       <canvas id="myChart"></canvas>
     </div>
   </div>
