@@ -10,6 +10,7 @@ Please note that you must output a graph for part 3, which is based on part 1. Y
 console application into a graphical application, such as a JavaScript program with an HTML5 canvas,
 but you can also output this graph as console text in the size 80x24.
 Tasks
+
 Part 1 Develop a term calculator that can handle (), *, /, +, and -. For example, if the user enters the
 term (5 + 8) * 3/8 +3, the term calculator shall calculate and output the result according to the school
 rules of term calculations.
