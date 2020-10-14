@@ -1,15 +1,19 @@
 <template>
   <div id="app">
     <Calculator />
+    <!-- <PeterNumber /> -->
   </div>
 </template>
 
 <script>
 import Calculator from './components/Calculator.vue'
+// import PeterNumber from './components/PeterNumber.vue'
+
 export default {
   name: 'App',
   components: {
     Calculator
+    // PeterNumber
   }
 }
 </script>
