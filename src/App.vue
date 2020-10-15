@@ -24,7 +24,7 @@ export default {
   },
   data () {
     return {
-      mode: true
+      mode: false
     }
   }
 }

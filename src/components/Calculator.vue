@@ -44,23 +44,6 @@ export default {
       current: '0'
     }
   },
-  created() {
-    let example1 = '-1+3-4'
-    let example2 = '-1-3'
-    let example3 = '--1-5'
-    let res = this.opposite(example1)
-    console.log('EXPECTED: 1-3+4' )
-    console.log('RES 1 ' + res)
-    let res2 = this.opposite(example2)
-    console.log('EXPECTED: 1+3' )
-    console.log('RES 2 ' + res2)
-    let res3 = this.opposite(example3)
-    console.log('EXPECTED: -1+5' )
-    console.log('RES 3 ' + res3)
-    // let res3 = this.opposite(example1)
-    // console.log('EXPECTED: 1+3' )
-    // console.log('RES 3 ' + res3)
-  },
   methods: {
     dot: function () {
       if (this.dotAllowed) {
@@ -116,7 +99,6 @@ export default {
         this.lastchar = value
         if (this.current !== '0') {
           if (value === 'x' && !this.current.includes('Y = ')) {
-            console.log('j')
             this.current = `Y = ${this.current}${value}`
           } else this.current = `${this.current}${value}`
         } else {
@@ -131,29 +113,22 @@ export default {
       if (!this.current.includes('Y = ')) {
         this.current = `Y = ${this.current}`
       }
-       this.createGraph()
+      this.createGraph()
     },
     opposite: function (str) {
       let newWord = ''
       let i = 0
       while (str[i]) {
-        console.log('OCCURENCE => i: ' + i + ' Char: ' + str[i])
         if (str[i] === '-' && str[i + 1] && str[i + 1] === '-') {
-          console.log('FOUND --')
           newWord = newWord + '-'
           i++
-        }
-        else if (str[i] === '-') {
-          console.log('FOUND -')
+        } else if (str[i] === '-') {
           newWord = newWord + '+'
-        }
-        else if (str[i] === '+') {
-          console.log('FOUND +')
+        } else if (str[i] === '+') {
           newWord = newWord + '-'
         } else {
           newWord = newWord + str[i]
         }
-        console.log('new word: ' + newWord)
         i++
       }
       return newWord
@@ -166,7 +141,6 @@ export default {
         let ind = word.indexOf(characters[i])
         if (ind !== -1) {
           if (i === 0) {
-            // console.log('( Occurence')
             let lastOpenParenthesis = word.substr(0, ind).lastIndexOf('(')
             if (lastOpenParenthesis !== -1) {
               return this.comput(word.substr(0, lastOpenParenthesis) + this.comput(word.substr(lastOpenParenthesis + 1, ind - lastOpenParenthesis - 1)) + word.substr(ind + 1, word.length - ind), 0)
@@ -178,12 +152,8 @@ export default {
             // break
             return this.comput(word.substr(0, ind), 0) - this.comput(this.opposite(word.substr(ind, word.length)), 0)
           } else if (i === 3) {
-            //  console.log('/ iteration ')
             return this.comput(word.substr(0, ind), 1) / this.comput(word.substr(ind + 1, word.length), 1)
           } else if (i === 4) {
-            // console.log('* iteration ')
-            // console.log(word.substr(0, ind))
-            // console.log(word.substr(ind + 1, word.length))
             return this.comput(word.substr(0, ind), 1) * this.comput(word.substr(ind + 1, word.length), 1)
           }
         }
@@ -198,14 +168,11 @@ export default {
       let i = 0
       while (i < abscisses.length) {
         expr = (this.current.replace('Y = ', '')).replace('x', abscisses[i])
-        // console.log('EXPR  ==>' + expr)
         dataLine[i] = this.comput(expr)
-        // console.log(data[i])
         i++
       }
-      console.log(dataLine)
       var ctx = document.getElementById('myChart').getContext('2d')
-      var myChart = new Chart(ctx, {
+      let myChart = new Chart(ctx, {
         type: 'line',
         data: {
           labels: ['-100', '-90', '-80', '-70', '-60', '-50', '-40', '-30', '-20', '-10', '0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
